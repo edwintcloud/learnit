@@ -6,3 +6,6 @@ Visit our site today and find the resources you need ~~[here](learnit.now.sh)~~ 
 
 ## Getting Started With Development
 The web app in located in the `client` folder and the backend api is located in the `server` folder. Navigate to either of these folders for further instructions.
+
+## Project Resources
+UI Design Flow, Wireframes, ERD, etc.. can be found in the Google Drive folder here: [Learnit](https://drive.google.com/open?id=1HgCFBukWhyTQaG_ECtsFlnZufp1-Xugp)
