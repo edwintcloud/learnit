@@ -78,6 +78,7 @@ export default class extends React.Component<Props> {
                 <Poster id="poster" src="static/img/poster1.jpg" alt="poster" className="loaded" />
               </ImageLoader>
               <Text size="2em" margin="20px">Choose a Topic</Text>
+              <Container overflow rows="min-content 1fr">
               <ChipBox margin="0 0 0 20px">
                   {[...Array(20)].map((_: any, i: number) => 
                     <Card
@@ -88,6 +89,7 @@ export default class extends React.Component<Props> {
                   )}
               </ChipBox>
               <Copyright>Copyright &copy; 2019 Learnit</Copyright>
+              </Container>
             </Container>
           );
         }}
