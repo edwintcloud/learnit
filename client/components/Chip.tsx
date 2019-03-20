@@ -30,6 +30,6 @@ export default styled.div<Props>`
     background-color: hsla(246, 9%, 23%, 0.8);
     ${props => props.margin && `margin: ${props.margin};`}
     :hover {
-        background-color: hsla(246, 9%, 23%, 0.9);
+        background-color: hsla(246, 9%, 25%, 0.9);
     }
 `;
