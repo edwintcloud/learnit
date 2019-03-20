@@ -9,7 +9,7 @@ export default styled.div<Props>`
   width: 98vw;
   max-width: 800px;
   flex-wrap: wrap;
-  height: fit-content;
+  height: 0px;
   justify-self: center;
 
   @media (max-width: 768px) {
