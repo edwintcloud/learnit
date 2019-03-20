@@ -12,9 +12,9 @@ const GlobalStyle = createGlobalStyle`
   }
   body, html {
     height: 100%;
-    font-family: 'PT Sans', sans-serif;
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; 
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   }
   .loaded {
     opacity: 1!important;

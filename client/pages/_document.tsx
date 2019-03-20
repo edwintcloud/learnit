@@ -126,6 +126,9 @@ export default class MyDocument extends Document<Props> {
             rel="apple-touch-startup-image"
           />
           <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon"/>
+
+          {/* Fonts */}
+          <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"></link>
         </Head>
         <body>
           <Main />
