@@ -3,12 +3,14 @@ import styled from "styled-components";
 interface Props {
   justify?: string
   margin?: string
+  maxWidth?: string
 }
 
 export default styled.div<Props>`
   display: flex;
   width: 98vw;
-  max-width: 800px;
+  ${props => props.maxWidth && `max-width: ${props.maxWidth};`}
+
   flex-wrap: wrap;
   ${props => props.justify && `justify-self: ${props.justify};`}
   @media (max-width: 768px) {

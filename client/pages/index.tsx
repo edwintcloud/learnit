@@ -79,7 +79,7 @@ export default class extends React.Component<Props> {
               </ImageLoader>
               <Container overflow rows="min-content min-content 1fr">
                 <Heading>What Would You Like to Learn?</Heading>
-                <ChipBox justify="center">
+                <ChipBox justify="center" maxWidth="800px">
                   <Chip as="a" onClick={() => this.changeRoute("/topics", {category: "Web Design"})}>Web Design</Chip>
                   <Chip as="a">Business</Chip>
                   <Chip as="a">IT Management</Chip>

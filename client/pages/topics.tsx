@@ -84,6 +84,7 @@ export default class extends React.Component<Props> {
                     <Card
                     key={i}
                     imgSrc="static/img/poster1.jpg"
+                    title="Topic 1"
                     text="topic 1 is about this and that and blah blah blah and such and suchtopic 1 is about this and that and blah blah blah and such and such"
                    ></Card>
                   )}
