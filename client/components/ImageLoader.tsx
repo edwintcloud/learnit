@@ -9,6 +9,6 @@ export default styled.div`
   left: 0;
   img {
       opacity: 0;
-      transition: opacity 0.1s ease-out;
+      transition: opacity 1s linear;
   }
 `;
