@@ -8,4 +8,7 @@ export { default as Card } from "./Card";
 export { default as Chip } from "./Chip";
 export { default as Heading } from "./Heading";
 export { default as ChipBox } from "./ChipBox";
+export { default as Logo } from "./Logo";
+export { default as Search } from "./Search";
+export { default as Text } from "./Text";
 export { default as Producer, Consumer } from "./Context";

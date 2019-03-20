@@ -8,10 +8,11 @@ import {
   ImageLoader,
   Poster,
   Copyright,
-  Heading,
-  Chip,
-  ChipBox,
-  Logo
+  Card,
+  Text,
+  Logo,
+  Search,
+  ChipBox
 } from "../components";
 import Router from 'next/router'
 
@@ -42,7 +43,7 @@ export default class extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.setPosterLoader();
+    // this.setPosterLoader();
   }
 
   changeRoute = (route?: string, query?: Object) => {
@@ -57,47 +58,36 @@ export default class extends React.Component<Props> {
       <Consumer>
         {(context: any) => {
           return (
-            <Container height="100vh" rows="80px 1fr">
+            <Container height="100vh" rows="80px min-content">
               <p>&nbsp;</p>
-              <Navbar cols="repeat(2, 1fr)">
+              <Navbar cols="90px repeat(2, 1fr)">
                 <Navlink
                   align="left"
                   size="2em"
                   padding="0 30px"
-                  cols="40px 1fr"
                   onClick={() => this.changeRoute("/")}
                 >
                   <Logo src="static/img/logo1.png" alt="logo" />
-                  Learnit
                 </Navlink>
+                <Search></Search>
                 <Navlink align="right" size="1em" padding="0 30px">
                   Login
                 </Navlink>
               </Navbar>
               <ImageLoader style={{ backgroundColor: "#000" }}>
-                <Poster id="poster" src="static/img/poster1.jpg" alt="poster" />
+                <Poster id="poster" src="static/img/poster1.jpg" alt="poster" className="loaded" />
               </ImageLoader>
-              <Container overflow rows="min-content min-content 1fr">
-                <Heading>What Would You Like to Learn?</Heading>
-                <ChipBox justify="center">
-                  <Chip as="a" onClick={() => this.changeRoute("/topics", {category: "Web Design"})}>Web Design</Chip>
-                  <Chip as="a">Business</Chip>
-                  <Chip as="a">IT Management</Chip>
-                  <Chip as="a">Office Productivity</Chip>
-                  <Chip as="a">Personal Development</Chip>
-                  <Chip as="a">UI/UX Design</Chip>
-                  <Chip as="a">Marketing</Chip>
-                  <Chip as="a">Lifestyle</Chip>
-                  <Chip as="a">Photography</Chip>
-                  <Chip as="a">Health &amp; Fitness</Chip>
-                  <Chip as="a">Music</Chip>
-                  <Chip as="a">Teaching</Chip>
-                  <Chip as="a">Machine Learning</Chip>
-                  <Chip as="a">Science</Chip>
-                </ChipBox>
-
-                <Copyright>Copyright &copy; 2019 Learnit</Copyright>
-              </Container>
+              <Text size="2em" margin="20px">Choose a Topic</Text>
+              <ChipBox margin="0 0 0 20px">
+                  {[...Array(20)].map((_: any, i: number) => 
+                    <Card
+                    key={i}
+                    imgSrc="static/img/poster1.jpg"
+                    text="topic 1 is about this and that and blah blah blah and such and suchtopic 1 is about this and that and blah blah blah and such and such"
+                   ></Card>
+                  )}
+              </ChipBox>
+              <Copyright>Copyright &copy; 2019 Learnit</Copyright>
             </Container>
           );
         }}

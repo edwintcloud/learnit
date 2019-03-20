@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export default styled.div`
+interface Props {
+  cols?: string
+}
+
+export default styled.div<Props>`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  ${props => props.cols && `grid-template-columns: ${props.cols};`}
   position: fixed;
   top: 0;
   left: 0;

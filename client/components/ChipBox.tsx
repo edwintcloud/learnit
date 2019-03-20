@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface Props {
-  
+  justify?: string
+  margin?: string
 }
 
 export default styled.div<Props>`
@@ -9,8 +10,10 @@ export default styled.div<Props>`
   width: 98vw;
   max-width: 800px;
   flex-wrap: wrap;
-  justify-self: center;
+  ${props => props.justify && `justify-self: ${props.justify};`}
   @media (max-width: 768px) {
     justify-content: center;
+    margin: 0;
   }
+  ${props => props.margin && `margin: ${props.margin};`}
 `;

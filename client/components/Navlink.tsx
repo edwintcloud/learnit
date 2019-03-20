@@ -3,6 +3,8 @@ import styled from "styled-components";
 interface Props {
     align?: string
     size?: string
+    padding?: string
+    cols?: string
   }
 
 export default styled.a<Props>`
@@ -15,8 +17,8 @@ export default styled.a<Props>`
   height: 100%;
   display: grid;
   align-items: center;
-  padding: 0 30px;
-
+  ${props => props.padding && `padding: ${props.padding};`}
+  ${props => props.cols && `grid-template-columns: ${props.cols};`}
   :hover {
       background-color: hsla(0, 0%, 2%, 0.6);
   }
