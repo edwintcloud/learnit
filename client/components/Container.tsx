@@ -7,6 +7,9 @@ interface Props {
   margin?: string;
   height?: string;
   overflow?: boolean
+  direction?: string
+  gap?: string
+  width?: string
 }
 
 export default styled.div<Props>`
@@ -16,5 +19,8 @@ export default styled.div<Props>`
   ${props => props.padding && `padding: ${props.padding};`}
   ${props => props.margin && `margin: ${props.margin};`}
   ${props => props.height && `height: ${props.height};`}
+  ${props => props.width && `width: ${props.width};`}
   ${props => props.overflow && `overflow-y: auto;`}
+  ${props => props.direction && `grid-auto-flow: ${props.direction};`}
+  ${props => props.gap && `grid-gap: ${props.gap};`}
 `;

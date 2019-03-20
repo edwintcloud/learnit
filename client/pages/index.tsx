@@ -8,7 +8,9 @@ import {
   ImageLoader,
   Poster,
   Copyright,
-  Card
+  Heading,
+  Chip,
+  ChipBox
 } from "../components";
 
 interface Props {
@@ -47,7 +49,7 @@ export default class extends React.Component<Props> {
         {(context: any) => {
           return (
             <Container height="100vh" rows="80px 1fr">
-            <p>s</p>
+              <p>s</p>
               <Navbar>
                 <Navlink align="left" size="2em">
                   Learnit
@@ -59,12 +61,29 @@ export default class extends React.Component<Props> {
               <ImageLoader style={{ backgroundColor: "#000" }}>
                 <Poster id="poster" src="static/img/poster1.jpg" alt="poster" />
               </ImageLoader>
-              <Container overflow>
-                <Card><h1 style={{width: '100%', textAlign:'center'}}>Hello</h1>></Card>
+              <Container overflow >
+                <Heading>
+                  What Would You Like to Learn?
+                </Heading>
+                <ChipBox>
+                  <Chip as="a">Web Design</Chip>
+                  <Chip as="a">Business</Chip>
+                  <Chip as="a">IT Management</Chip>
+                  <Chip as="a">Office Productivity</Chip>
+                  <Chip as="a">Personal Development</Chip>
+                  <Chip as="a">UI/UX Design</Chip>
+                  <Chip as="a">Marketing</Chip>
+                  <Chip as="a">Lifestyle</Chip>
+                  <Chip as="a">Photography</Chip>
+                  <Chip as="a">Health &amp; Fitness</Chip>
+                  <Chip as="a">Music</Chip>
+                  <Chip as="a">Teaching</Chip>
+                  <Chip as="a">Machine Learning</Chip>
+                  <Chip as="a">Science</Chip>
+                </ChipBox>
+                
                 <Copyright>Copyright &copy; 2019 Learnit</Copyright>
               </Container>
-
-              
             </Container>
           );
         }}

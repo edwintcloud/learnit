@@ -5,4 +5,7 @@ export { default as ImageLoader } from "./ImageLoader";
 export { default as Poster } from "./Poster";
 export { default as Copyright } from "./Copyright";
 export { default as Card } from "./Card";
+export { default as Chip } from "./Chip";
+export { default as Heading } from "./Heading";
+export { default as ChipBox } from "./ChipBox";
 export { default as Producer, Consumer } from "./Context";
