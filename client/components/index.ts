@@ -11,4 +11,5 @@ export { default as ChipBox } from "./ChipBox";
 export { default as Logo } from "./Logo";
 export { default as Search } from "./Search";
 export { default as Text } from "./Text";
+export { default as Slider } from "./Slider";
 export { default as Producer, Consumer } from "./Context";

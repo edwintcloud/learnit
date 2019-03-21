@@ -129,6 +129,7 @@ export default class MyDocument extends Document<Props> {
 
           {/* Fonts */}
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"></link>
         </Head>
         <body>
           <Main />

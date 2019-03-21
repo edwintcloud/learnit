@@ -7,14 +7,13 @@ import {
   Navlink,
   ImageLoader,
   Poster,
-  Copyright,
   Card,
   Text,
   Logo,
   Search,
-  ChipBox
+  Slider
 } from "../components";
-import Router from 'next/router'
+import Router from "next/router";
 
 interface Props {
   posts: any;
@@ -58,7 +57,7 @@ export default class extends React.Component<Props> {
       <Consumer>
         {(context: any) => {
           return (
-            <Container height="100vh" rows="80px min-content">
+            <Container height="100vh" rows="1fr 80px">
               <p>&nbsp;</p>
               <Navbar cols="90px repeat(2, 1fr)">
                 <Navlink
@@ -69,28 +68,50 @@ export default class extends React.Component<Props> {
                 >
                   <Logo src="static/img/logo1.png" alt="logo" />
                 </Navlink>
-                <Search></Search>
+                <Search />
                 <Navlink align="right" size="1em" padding="0 30px">
                   Login
                 </Navlink>
               </Navbar>
               <ImageLoader style={{ backgroundColor: "#000" }}>
-                <Poster id="poster" src="static/img/poster1.jpg" alt="poster" className="loaded" />
+                <Poster
+                  id="poster"
+                  src="static/img/poster1.jpg"
+                  alt="poster"
+                  className="loaded"
+                />
               </ImageLoader>
-              <Text size="2em" margin="20px">Choose a Topic</Text>
-              <Container overflow rows="min-content 1fr">
-              <ChipBox margin="0 0 0 20px">
-                  {[...Array(20)].map((_: any, i: number) => 
-                    <Card
-                    key={i}
-                    imgSrc="static/img/poster1.jpg"
-                    title="Topic 1"
-                    text="topic 1 is about this and that and blah blah blah and such and suchtopic 1 is about this and that and blah blah blah and such and such"
-                   ></Card>
-                  )}
-              </ChipBox>
-              <Copyright>Copyright &copy; 2019 Learnit</Copyright>
-              </Container>
+              {/* <Text size="2em" margin="20px">Choose a Topic</Text> */}
+              <Slider>
+                <Container rows="min-content 69vh">
+                  <Text
+                    margin="30px 30px 15px 30px"
+                    size="28px"
+                    color="rgba(73, 73, 73, 1)"
+                    weight="800"
+                  >
+                    Topics
+                  </Text>
+                  <Container overflow>
+                    {[...Array(20)].map((_: any, i: number) => (
+                      <Card
+                        key={i}
+                        imgSrc="static/img/poster1.jpg"
+                        title="Topic 1"
+                        text="topic 1 is about this and that and blah blah blah and such and suchtopic 1 is about this and that and blah blah blah and such and such"
+                      />
+                    ))}
+                  </Container>
+                </Container>
+              </Slider>
+              <Text
+                as="p"
+                margin="15px 30px"
+                color="rgba(255, 255, 255, 0.8)"
+                align="end"
+              >
+                Copyright &copy; 2019 Learnit
+              </Text>
             </Container>
           );
         }}

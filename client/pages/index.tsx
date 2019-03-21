@@ -7,7 +7,7 @@ import {
   Navlink,
   ImageLoader,
   Poster,
-  Copyright,
+  Text,
   Heading,
   Chip,
   ChipBox,
@@ -96,7 +96,14 @@ export default class extends React.Component<Props> {
                   <Chip as="a">Science</Chip>
                 </ChipBox>
 
-                <Copyright>Copyright &copy; 2019 Learnit</Copyright>
+                <Text
+                as="p"
+                margin="15px 30px"
+                color="rgba(255, 255, 255, 0.8)"
+                align="end"
+              >
+                Copyright &copy; 2019 Learnit
+              </Text>
               </Container>
             </Container>
           );

@@ -1,39 +1,44 @@
 import styled from "styled-components";
+import { Text } from "./";
 
 const Box = styled.div`
-  width: 300px;
-  height: 80px;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
-  background-color: hsla(0, 0%, 100%, 0.8);
   border-radius: 3px;
   display: grid;
   grid-template-columns: min-content 1fr;
   justify-items: center;
   margin: 5px 30px;
+  align-items: center;
+  grid-gap: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  :hover {
+    p:first-of-type {
+      text-decoration: underline;
+      text-decoration-color: rgb(75, 63, 101);
+    }
+  }
+
 `;
 
 const Image = styled.img`
   height: 80px;
-  width: 80px;
+  width: 100px;
   object-fit: cover;
-  border-radius: 3px 0 0 3px;
-`;
+  border-radius: 3px;
 
-const Text = styled.p`
-  ${(props: any) => props.margin && `margin: ${props.margin};`}
-  overflow: hidden;
-  margin: 5px;
+  box-sizing: border-box;
 `;
 
 const TextBox = styled.div`
-  display: grid;
-  height: 80px;
-  margin: 0;
-  font-size: 1em;
-  overflow-y: hidden;
-  -webkit-box-shadow: -2px 0px 8px -2px rgba(255,255,255,1);
-  -moz-box-shadow: -2px 0px 8px -2px rgba(255,255,255,1);
-  box-shadow: -2px 0px 8px -2px rgba(255,255,255,1);
+  justify-self: start;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; 
+  height: min-content;
+  overflow: hidden;
 `;
 
 
@@ -41,8 +46,23 @@ export default (props: any) => (
   <Box {...props}>
     <Image src={props.imgSrc} />
     <TextBox>
-      <Text {...props} margin="0"><strong>{props.title}</strong></Text>
-      <Text {...props} margin="0">{props.text}</Text>
+      <Text 
+        {...props} 
+        as="p"
+        margin="0 10px 5px 0"
+        size="16px"
+        color="rgba(73, 73, 73, 1)"
+        weight="600"
+      >{props.title}</Text>
+      <Text 
+        {...props} 
+        as="p"
+        margin="0 10px 0 0"
+        size="14px"
+        color="rgba(73, 73, 73, 1)"
+        weight="300"
+        truncate="yes"
+      >{props.text}</Text>
     </TextBox>
   </Box>
 )
