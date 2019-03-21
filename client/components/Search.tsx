@@ -31,6 +31,6 @@ const Input = styled.input`
 
 export default (props: any) => (
   <Label {...props}>
-    <Input {...props} placeholder="Search for a topic..." />
+    <Input {...props} placeholder="Search topics..." />
   </Label>
 );

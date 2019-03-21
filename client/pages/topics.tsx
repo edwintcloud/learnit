@@ -11,7 +11,8 @@ import {
   Text,
   Logo,
   Search,
-  Slider
+  Slider,
+  Select
 } from "../components";
 import Router from "next/router";
 
@@ -83,9 +84,24 @@ export default class extends React.Component<Props> {
               </ImageLoader>
               {/* <Text size="2em" margin="20px">Choose a Topic</Text> */}
               <Slider>
-                <Container rows="min-content calc(100vh - 60px - 98px)">
+                <Container rows="min-content min-content calc(100vh - 60px - 131px)" margin="15px 0 0 0" gap="15px">
+                <Container cols="min-content 1fr">
+                <Text
+                    margin="0 30px"
+                    size="18px"
+                    color="rgba(73, 73, 73, 1)"
+                    weight="800"
+                    align="center"
+                  >
+                    Category:
+                  </Text>
+                  <Select
+                    values={["one", "two"]}
+                    defaultValue="two"
+                  />
+                </Container>
                   <Text
-                    margin="30px 30px 15px 30px"
+                    margin="0 30px"
                     size="28px"
                     color="rgba(73, 73, 73, 1)"
                     weight="800"
@@ -96,7 +112,6 @@ export default class extends React.Component<Props> {
                     {[...Array(20)].map((_: any, i: number) => (
                       <Card
                         key={i}
-                        imgSrc="static/img/poster1.jpg"
                         title="Topic 1"
                         text="topic 1 is about this and that and blah blah blah and such and suchtopic 1 is about this and that and blah blah blah and such and such"
                       />
