@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now && now alias",
+    "deploy": "now --target production",
     "now-build": "next build"
   },
   "repository": {
