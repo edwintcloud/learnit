@@ -98,7 +98,7 @@ export default class extends React.Component<Props> {
 
                 <Text
                 as="p"
-                margin="15px 30px"
+                margin="30px"
                 color="rgba(255, 255, 255, 0.8)"
                 align="end"
               >

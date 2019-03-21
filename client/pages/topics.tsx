@@ -83,7 +83,7 @@ export default class extends React.Component<Props> {
               </ImageLoader>
               {/* <Text size="2em" margin="20px">Choose a Topic</Text> */}
               <Slider>
-                <Container rows="min-content 69vh">
+                <Container rows="min-content calc(100vh - 60px - 98px)">
                   <Text
                     margin="30px 30px 15px 30px"
                     size="28px"
@@ -104,14 +104,6 @@ export default class extends React.Component<Props> {
                   </Container>
                 </Container>
               </Slider>
-              <Text
-                as="p"
-                margin="15px 30px"
-                color="rgba(255, 255, 255, 0.8)"
-                align="end"
-              >
-                Copyright &copy; 2019 Learnit
-              </Text>
             </Container>
           );
         }}
