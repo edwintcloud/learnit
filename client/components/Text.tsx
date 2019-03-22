@@ -8,6 +8,8 @@ interface Props {
     weight?: string
     align?: string
     truncate?: string
+    justify?: string
+    hover?: string
 }
 
 export default styled.h1<Props>`
@@ -17,6 +19,7 @@ export default styled.h1<Props>`
   ${props => props.underline && `text-decoration: underline;`}
   ${props => props.margin && `margin: ${props.margin};`}
   ${props => props.align && `align-self: ${props.align};`}
+  ${props => props.justify && `justify-self: ${props.justify};`}
   ${props => props.truncate && `
     overflow: hidden;
     :after {
@@ -37,4 +40,5 @@ export default styled.h1<Props>`
         text-align: right;
     }
   `}
+  ${props => props.hover && `:hover { text-decoration: ${props.hover}; cursor: pointer; }`}
 `;

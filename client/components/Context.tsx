@@ -1,6 +1,29 @@
 import React from "react";
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  topics: [
+    {
+      id: 1,
+      name: "Topic1",
+      description: "test1"
+    },
+    {
+      id: 2,
+      name: "Topic1",
+      description: "test1"
+    },
+    {
+      id: 3,
+      name: "Topic1",
+      description: "test1"
+    },
+    {
+      id: 4,
+      name: "Topic1",
+      description: "test1"
+    }
+  ]
+};
 
 const Context = React.createContext(INITIAL_STATE);
 

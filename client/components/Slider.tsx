@@ -12,6 +12,7 @@ export default styled.div<Props>`
     width: 96vw;
     margin-left: 2vw;
     margin-right: 2vw;
+    overflow: hidden;
     margin-top: 80px;
     transform: translateY(100%);
     @keyframes slide-in {

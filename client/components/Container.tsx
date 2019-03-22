@@ -6,10 +6,14 @@ interface Props {
   padding?: string;
   margin?: string;
   height?: string;
-  overflow?: boolean
+  overflow?: string
   direction?: string
   gap?: string
   width?: string
+  align?: string
+  justify?: string
+  reactive?: string
+  maxWidth?: string
 }
 
 export default styled.div<Props>`
@@ -23,4 +27,18 @@ export default styled.div<Props>`
   ${props => props.overflow && `overflow-y: auto;`}
   ${props => props.direction && `grid-auto-flow: ${props.direction};`}
   ${props => props.gap && `grid-gap: ${props.gap};`}
+  ${props => props.align && `align-self: ${props.align};`}
+  ${props => props.justify && `justify-self: ${props.justify};`}
+  ${props => props.maxWidth && `max-width: ${props.maxWidth};`}
+  ${props => props.reactive && `
+    @media (max-width: 768px) {
+      ${props.rows && `
+        grid-template-columns: ${props.rows};
+        grid-template-rows: unset;
+      ` || `
+        grid-template-rows: ${props.cols};
+        grid-template-columns: unset;
+      `}
+    }
+  `}
 `;

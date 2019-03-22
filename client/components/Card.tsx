@@ -4,6 +4,7 @@ import { Text } from "./";
 const Box = styled.div`
   border-radius: 3px;
   display: grid;
+  height: 80px;
   grid-template-columns: min-content 1fr;
   justify-items: center;
   margin: 5px 30px;
@@ -49,22 +50,20 @@ export default (props: any) => (
     || <Image src="static/img/notfound.jpg" />}
     <TextBox>
       <Text 
-        {...props} 
         as="p"
         margin="0 10px 5px 0"
         size="16px"
         color="rgba(73, 73, 73, 1)"
         weight="600"
-      >{props.title}</Text>
+      >{props.name}</Text>
       <Text 
-        {...props} 
         as="p"
         margin="0 10px 0 0"
         size="14px"
         color="rgba(73, 73, 73, 1)"
         weight="300"
         truncate="yes"
-      >{props.text}</Text>
+      >{props.description}</Text>
     </TextBox>
   </Box>
 )

@@ -8,6 +8,7 @@ const Select = styled.select`
   font-family: inherit;
   box-sizing: border-box;
   cursor: pointer;
+
   background-color: transparent;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -18,13 +19,13 @@ const Select = styled.select`
 `;
 
 const Option = styled.option`
-  color: black;
+
 `;
 
 export default (props: any) => (
-  <Select {...props} >
+  <Select defaultValue={props.defaultValue}>
     {props.values && props.values.map((value: any, index: any) => 
-      <Option {...props} key={index} value={value}>{value}</Option>  
+      <Option key={index} value={value}>{value}</Option>  
     )}
   </Select>
 )

@@ -77,7 +77,7 @@ export default class extends React.Component<Props> {
               <ImageLoader style={{ backgroundColor: "#000" }}>
                 <Poster id="poster" src="static/img/poster1.jpg" alt="poster" />
               </ImageLoader>
-              <Container overflow rows="min-content min-content 1fr">
+              <Container overflow="true" rows="min-content min-content 1fr">
                 <Heading>What Would You Like to Learn?</Heading>
                 <ChipBox justify="center" maxWidth="800px">
                   <Chip as="a" onClick={() => this.changeRoute("/topics", {category: "Web Design"})}>Web Design</Chip>
