@@ -9,6 +9,6 @@ export default styled.div<Props>`
     border-radius: 5px;
     height: min-content;
     align-self: center;
-    margin: 0 2vw;
+    margin: 2vw;
     overflow: hidden;
 `;
