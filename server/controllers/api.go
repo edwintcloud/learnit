@@ -14,4 +14,6 @@ type API struct {
 // RegisterRoutes registers api routes with echo server
 func (api *API) RegisterRoutes() {
 	api.RegisterCategories()
+	api.RegisterTopics()
+	api.RegisterResources()
 }

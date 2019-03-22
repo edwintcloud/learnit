@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/edwintcloud/learnit/server/models"
@@ -23,8 +22,7 @@ func (api *API) RegisterCategories() {
 
 // GetCategories gets all categories from the database
 func (api *API) GetCategories(c echo.Context) error {
-	return c.JSON(http.StatusOK, models.Response{
-		Message: fmt.Sprintf("%s %s OK", c.Request().Method, c.Request().RequestURI),
-		Status:  http.StatusOK,
-	})
+	categories := []models.Category{}
+	api.DB.Find(&categories)
+	return c.JSON(http.StatusOK, categories)
 }
