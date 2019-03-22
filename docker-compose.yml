@@ -11,6 +11,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "secretpassword"
+      MYSQL_DATABASE: "learnit"
 # API Server
   learnit-server:
     build: ./server
@@ -18,8 +19,12 @@ services:
       - "8000:8000" 
     environment:
       - PORT=:8000
-      - MONGODB_URI=mongo/lasagna
       - JWT_SECRET=secret
+      - DB_HOST=learnit-db
+      - DB_PORT=3306
+      - DB_NAME=learnit
+      - DB_USER=root
+      - DB_PASSWORD=secretpassword
     depends_on:
       - learnit-db  
 

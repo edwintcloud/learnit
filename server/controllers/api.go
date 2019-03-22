@@ -1,10 +1,14 @@
 package controllers
 
-import "github.com/labstack/echo"
+import (
+	"github.com/jinzhu/gorm"
+	"github.com/labstack/echo"
+)
 
 // API is our api model
 type API struct {
 	Server *echo.Echo
+	DB     *gorm.DB
 }
 
 // RegisterRoutes registers api routes with echo server
