@@ -19,6 +19,7 @@ func (api *API) RegisterResources() {
 	{
 		routes.GET("", api.GetResources)
 		routes.GET("/by_topic/:id", api.GetResourcesByTopic)
+		routes.POST("", api.CreateResource)
 	}
 }
 
@@ -41,4 +42,18 @@ func (api *API) GetResourcesByTopic(c echo.Context) error {
 	}
 	api.DB.Where(&models.Resource{TopicID: id}).Find(&resources)
 	return c.JSON(http.StatusOK, resources)
+}
+
+// CreateResource creates a new resource in the db
+func (api *API) CreateResource(c echo.Context) error {
+	resource := models.Resource{}
+	err := c.Bind(&resource)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Message: err.Error(),
+			Status:  http.StatusBadRequest,
+		})
+	}
+	api.DB.Create(&resource)
+	return c.JSON(http.StatusOK, resource)
 }
