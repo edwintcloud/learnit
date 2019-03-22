@@ -9,3 +9,11 @@ The web app in located in the `client` folder and the backend api is located in 
 
 ## Project Resources
 UI Design Flow, Wireframes, ERD, etc.. can be found in the Google Drive folder here: [Learnit](https://drive.google.com/open?id=1HgCFBukWhyTQaG_ECtsFlnZufp1-Xugp)
+
+## Milestones
+### Milestone 1
+Users can select a category and topic and view links
+### Milestone 2
+Users can create an account or sign in with google
+### Milestone 3
+Users can share links and upvote other users links
