@@ -6,18 +6,14 @@ interface Props {
 
 export default styled.div<Props>`
   background-color: rgba(255, 255, 255, 1);
-  border-radius: 5px;
   position: absolute;
-  
-  width: 96vw;
-  margin-left: 2vw;
-  margin-right: 2vw;
+  width: 100vw;
   overflow: hidden;
   margin-top: 80px;
   
   ${props => props.animated && `
     transform: translateY(100%);
-    animation: slide-in 0.5s forwards;
+    animation: slide-in 0.7s ease-in-out forwards;
     @keyframes slide-in {
         from {
         }

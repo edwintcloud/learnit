@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/edwintcloud/learnit/server/controllers"
 	"github.com/edwintcloud/learnit/server/models"
@@ -36,7 +37,15 @@ func main() {
 	}))
 
 	// connect to database and defer session to close when server is shutdown
-	db := ConnectDB()
+	db, err := ConnectDB()
+	if err != nil {
+		// try again in 5 seconds
+		time.Sleep(time.Second * 5)
+		db, err = ConnectDB()
+		if err != nil {
+			log.Fatalf("Unable to open mysql connection: %s", err)
+		}
+	}
 	defer db.Close()
 
 	// register api with echo server
@@ -59,16 +68,12 @@ func main() {
 }
 
 // ConnectDB connects to mysql db
-func ConnectDB() *gorm.DB {
-	db, err := gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+func ConnectDB() (*gorm.DB, error) {
+	return gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_NAME"),
 	))
-	if err != nil {
-		log.Fatalf("Unable to open mysql connection: %s", err)
-	}
-	return db
 }
