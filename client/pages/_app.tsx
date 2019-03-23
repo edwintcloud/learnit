@@ -72,7 +72,7 @@ export default class MyApp extends App {
               </Navlink>
             </Link>
             <Navlink align="right" size="1em" padding="0 30px">
-              Login
+              {/* Login */}
             </Navlink>
           </Navbar>
           <ImageLoader style={{ backgroundColor: "#000" }}>

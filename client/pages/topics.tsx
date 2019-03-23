@@ -34,7 +34,7 @@ export default class extends React.Component<Props> {
       <Slider animated={this.context.topicsAnimate}>
         <Container
           rows="min-content min-content calc(100vh - 60px - 132px)"
-          margin="15px 0 0 0"
+          margin="30px 0 0 0"
           gap="15px"
         >
           <Container cols="min-content 1fr">

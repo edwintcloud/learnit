@@ -70,6 +70,7 @@ export default class extends React.Component<Props> {
     const CardGridBox = styled(Grid)`
       padding: 15px 0 15px 15px;
       border-bottom: 1px solid #e4e6e8;
+      height: 180px;
     `;
 
     if (
@@ -169,6 +170,7 @@ export default class extends React.Component<Props> {
                     template={`"a" "b" "c" min-content`}
                     gap="10px"
                     padding={"10px 0 10px 10px"}
+                    height={160}
                   >
                     <Grid.Item
                       area="a"
