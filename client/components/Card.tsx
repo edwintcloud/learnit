@@ -45,8 +45,8 @@ const TextBox = styled.div`
 
 export default (props: any) => (
   <Box {...props}>
-    {props.imgSrc && 
-      <Image src={props.imgSrc} />
+    {props.img_url && 
+      <Image src={props.img_url} />
     || <Image src="static/img/notfound.jpg" />}
     <TextBox>
       <Text 

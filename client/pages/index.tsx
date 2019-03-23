@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import React from "react";
 import {
   Container,
@@ -16,30 +15,11 @@ import {
 import Link from "next/link";
 
 interface Props {
-  posts: any
-  imgLoaded: any
-  error?: any
-  categories?: any
+  router?: any
 }
 
 export default class extends React.Component<Props> {
   static contextType = Context;
-  static async getInitialProps() {
-    try {
-      const fetchCategories = await fetch(
-        `${process.env.BACKEND_URL}/api/v1/categories`
-      );
-      const categories = await fetchCategories.json();
-      return {
-        categories
-      };
-    } catch(error) {
-      return {
-        error
-      };
-    }
-    
-  }
 
   setPosterLoader() {
     const win: any = window;
@@ -51,14 +31,10 @@ export default class extends React.Component<Props> {
     newImg.src = img.src;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setPosterLoader();
-    if (this.props.error) {
-      console.log(this.props.error)
-    }
-    if (this.props.categories) {
-      this.context.updateState("categories", this.props.categories);
-    }
+    await this.context.getResource("categories", "/api/v1/categories");
+    this.context.updateState("topicsAnimate", true);
   }
 
   render() {
@@ -88,21 +64,27 @@ export default class extends React.Component<Props> {
         <Container overflow="true" rows="min-content min-content 1fr">
           <Heading>What Would You Like to Learn?</Heading>
           <ChipBox justify="center" maxWidth="800px">
-            {this.props.categories && this.props.categories.map((category: any, index: any) => 
-            <Link href={{
-              pathname: "/topics",
-              query: { 
-                category_id: category.id,
-                category_name: category.name
-              }
-            }}>
+            {this.context.categories && this.context.categories.map((category: any, index: any) => 
               <Chip
               key={index}
               as="a"
+              onClick={() => setTimeout(this.props.router.push({
+                pathname: "/topics",
+                query: { 
+                  category_id: category.id
+                }
+              }), 100)}
+              // onMouseEnter={() => this.props.router.prefetch(
+              //   {
+              //     pathname: "/topics",
+              //     query: { 
+              //       category_id: category.id
+              //     }
+              //   }
+              // )}
             >
               {category.name}
             </Chip>
-            </Link>
             )}
           </ChipBox>
 

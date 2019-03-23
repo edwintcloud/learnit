@@ -29,7 +29,7 @@ const nextConfig = {
     ]
   },
   env: {
-    BACKEND_URL: prod ? 'https://learnit.herokuapp.com' : 'http://localhost:8000',
+    BACKEND_URL: prod ? 'https://learnit-prod.herokuapp.com' : 'http://localhost:8000',
     // we can use now secrets for api keys and sensitive info we don't want to expose client side
     // variables here are compiled into app at build time
   }

@@ -1,29 +1,7 @@
 import React from "react";
+import fetch from "isomorphic-unfetch";
 
-const INITIAL_STATE = {
-  topics: [
-    {
-      id: 1,
-      name: "Topic1",
-      description: "test1"
-    },
-    {
-      id: 2,
-      name: "Topic1",
-      description: "test1"
-    },
-    {
-      id: 3,
-      name: "Topic1",
-      description: "test1"
-    },
-    {
-      id: 4,
-      name: "Topic1",
-      description: "test1"
-    }
-  ]
-};
+const INITIAL_STATE = {};
 
 export const Context = React.createContext(INITIAL_STATE);
 
@@ -33,6 +11,28 @@ export default class Provider extends React.Component {
   actions = {
     updateState: (name: any, value: any) => {
       this.setState({ [name]: value });
+    },
+    getResource: async (name: string, url: string) => {
+      try {
+        const res = await fetch(
+          `${process.env.BACKEND_URL}${url}`
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message);
+        }
+        this.setState({[name]: data});
+        // persist to local storage
+        localStorage.setItem(name, JSON.stringify(data));
+      } catch(err) {
+        console.log(err);
+        // if network fails, attempt to load from local storage
+        const data = localStorage.getItem(name);
+        if (data != null) {
+          this.setState({[name]: JSON.parse(data)});
+          console.log("Data was loaded from local storage.");
+        }
+      }
     }
   };
 

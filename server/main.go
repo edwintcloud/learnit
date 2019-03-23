@@ -30,6 +30,11 @@ func main() {
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
+	// GZIP compress config
+	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+		Level: 5,
+	}))
+
 	// connect to database and defer session to close when server is shutdown
 	db := ConnectDB()
 	defer db.Close()
