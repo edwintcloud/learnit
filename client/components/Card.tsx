@@ -14,7 +14,6 @@ const Box = styled.div`
   background-color: transparent;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
   :hover {
     p:first-of-type {
       text-decoration: underline;
