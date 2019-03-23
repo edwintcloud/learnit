@@ -14,4 +14,4 @@ export { default as Slider } from "./Slider";
 export { default as Select } from "./Select";
 export { default as Box } from "./Box";
 export { default as OgCard } from "./OgCard";
-export { default as Producer, Consumer } from "./Context";
+export { default as Producer, Consumer, Context } from "./Context";

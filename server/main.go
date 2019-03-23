@@ -24,6 +24,12 @@ func main() {
 		Format: "${method}  ${uri}  ${latency_human}  ${status}\n",
 	}))
 
+	// CORS config
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"https://learnit.now.sh", "http://localhost:3000"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
+
 	// connect to database and defer session to close when server is shutdown
 	db := ConnectDB()
 	defer db.Close()

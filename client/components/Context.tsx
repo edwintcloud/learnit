@@ -25,7 +25,7 @@ const INITIAL_STATE = {
   ]
 };
 
-const Context = React.createContext(INITIAL_STATE);
+export const Context = React.createContext(INITIAL_STATE);
 
 export default class Provider extends React.Component {
   state = INITIAL_STATE;

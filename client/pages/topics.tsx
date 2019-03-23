@@ -2,6 +2,7 @@
 import React from "react";
 import {
   Consumer,
+  Context,
   Container,
   Navbar,
   Navlink,
@@ -14,22 +15,32 @@ import {
   Slider,
   Select
 } from "../components";
-import Router from "next/router";
+import Link from "next/link";
+import { throws } from "assert";
 
 interface Props {
-  posts: any;
-  imgLoaded: any;
+  topics?: any
+  query?: any
+  error?: any
 }
 
 export default class extends React.Component<Props> {
-  static async getInitialProps() {
-    // const fetchPosts = await fetch(
-    //   "https://jsonplaceholder.typicode.com/posts"
-    // );
-    // const posts = await fetchPosts.json();
-    // return {
-    //   posts
-    // };
+  static contextType = Context;
+  static async getInitialProps({ query }: { query: any}) {
+    try {
+      const fetchTopics = await fetch(
+        `${process.env.BACKEND_URL}/api/v1/topics/by_category/${query.category_id}`
+      );
+      const topics = await fetchTopics.json();
+      return {
+        topics,
+        query
+      };
+    } catch(error) {
+      return {
+        error
+      };
+    }
   }
 
   setPosterLoader() {
@@ -43,21 +54,17 @@ export default class extends React.Component<Props> {
   }
 
   componentDidMount() {
-    // this.setPosterLoader();
+    if (this.props.error) {
+      console.log(this.props.error)
+    }
   }
-
-  changeRoute = (route?: string, query?: Object) => {
-    Router.push({
-      pathname: route,
-      query: query
-    });
-  };
 
   navigateTopic = (topic: any) => {
     console.log(topic)
   };
 
   render() {
+    console.log(this.context)
     return (
       <Consumer>
         {(context: any) => {
@@ -65,14 +72,15 @@ export default class extends React.Component<Props> {
             <Container height="100vh" rows="1fr 80px">
               <p>&nbsp;</p>
               <Navbar cols="90px repeat(2, 1fr)">
+              <Link href="/">
                 <Navlink
                   align="left"
                   size="2em"
                   padding="0 30px"
-                  onClick={() => this.changeRoute("/")}
                 >
                   <Logo src="static/img/logo1.png" alt="logo" />
                 </Navlink>
+                </Link>
                 <Search />
                 <Navlink align="right" size="1em" padding="0 30px">
                   Login
@@ -86,7 +94,6 @@ export default class extends React.Component<Props> {
                   className="loaded"
                 />
               </ImageLoader>
-              {/* <Text size="2em" margin="20px">Choose a Topic</Text> */}
               <Slider>
                 <Container rows="min-content min-content calc(100vh - 60px - 132px)" margin="15px 0 0 0" gap="15px">
                 <Container cols="min-content 1fr">
@@ -100,8 +107,8 @@ export default class extends React.Component<Props> {
                     Category:
                   </Text>
                   <Select
-                    values={["onesdasdasdasdasda", "two"]}
-                    defaultValue="two"
+                    values={this.context.categories && this.context.categories}
+                    defaultValue={this.props.query.category_id}
                   />
                 </Container>
                   <Text
@@ -113,12 +120,18 @@ export default class extends React.Component<Props> {
                     Topics
                   </Text>
                   <Container overflow="true" rows="repeat(auto-fill, 90px)">
-                    {context.topics && context.topics.map((topic: any, i: number) => (
+                    {this.props.topics && this.props.topics.map((topic: any, i: number) => (
+                      <Link href={{
+                        pathname: "/topic",
+                        query: { 
+                          id: topic.id
+                        }
+                      }}>
                       <Card
                         key={i}
-                        onClick={() => this.changeRoute("/topic", { id: topic.id })}
                         {...topic}
                       />
+                      </Link>
                     ))}
                   </Container>
                 </Container>

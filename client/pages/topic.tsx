@@ -15,15 +15,18 @@ import {
   Slider,
   Select
 } from "../components";
-import Router from "next/router";
+import Link from "next/link";
 
 interface Props {
-  posts: any;
-  imgLoaded: any;
+  posts: any
+  imgLoaded: any
+  query?: any
+  router?: any
 }
 
 export default class extends React.Component<Props> {
-  static async getInitialProps() {
+  static async getInitialProps({ query }:{ query: any }) {
+    return { query }
     // const fetchPosts = await fetch(
     //   "https://jsonplaceholder.typicode.com/posts"
     // );
@@ -47,36 +50,31 @@ export default class extends React.Component<Props> {
     // this.setPosterLoader();
   }
 
-  changeRoute = (route?: string, query?: Object) => {
-    Router.push({
-      pathname: route,
-      query: query
-    });
-  };
-
   render() {
     return (
       <Consumer>
         {(context: any) => {
           return (
             <Container height="100vh" rows="80px">
+            {console.log("hello")}
               <p>&nbsp;</p>
               <Navbar cols="90px repeat(2, 1fr)">
+              <Link href="/">
                 <Navlink
                   align="left"
                   size="2em"
                   padding="0 30px"
-                  onClick={() => this.changeRoute("/")}
                 >
                   <Logo src="static/img/logo1.png" alt="logo" />
                 </Navlink>
+                </Link>
                 <Text
                   as="a"
                   color="rgba(255, 255, 255, 0.8)"
                   size="24px"
                   align="center"
                   hover="underline"
-                  onClick={() => Router.back()}
+                  onClick={() => {this.props.router.back()}}
                 >Back</Text>
                 <Navlink align="right" size="1em" padding="0 30px">
                   Login
@@ -144,7 +142,6 @@ export default class extends React.Component<Props> {
                     {context.topics && context.topics.map((topic: any, i: number) => (
                       <OgCard
                         key={i}
-                        onClick={() => this.changeRoute("/topic", { id: topic.id })}
                         {...topic}
                       />
                     ))}

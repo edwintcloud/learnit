@@ -25,7 +25,7 @@ const Option = styled.option`
 export default (props: any) => (
   <Select defaultValue={props.defaultValue}>
     {props.values && props.values.map((value: any, index: any) => 
-      <Option key={index} value={value}>{value}</Option>  
+      <Option key={index} value={value.id}>{value.name}</Option>  
     )}
   </Select>
 )
