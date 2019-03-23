@@ -1,13 +1,13 @@
 # Learnit Server
 API Server for Learnit
 
-# Getting Started
+## Getting Started
 To get started with development, clone this repo and run the following commands from the root of the repository:
 ```bash
 docker-compose build
 docker-compose up
 ```
-# Deployment
+## Deployment
 Server is ready to be deployed to heroku. Ensure heroku is installed globally and run the following commands from the root of the repository to deploy.
 ```bash
 git subtree push --prefix server heroku master
