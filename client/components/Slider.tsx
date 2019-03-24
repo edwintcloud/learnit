@@ -11,7 +11,7 @@ export default styled.div<Props>`
   overflow: hidden;
   margin-top: 80px;
   
-  ${props => props.animated && `
+  ${props => props.animated !== false && `
     transform: translateY(100%);
     animation: slide-in 0.7s ease-in-out forwards;
     @keyframes slide-in {
