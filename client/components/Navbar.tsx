@@ -13,4 +13,5 @@ export default styled.div<Props>`
   background-color: hsla(0, 0%, 2%, 0.1);
   height: 80px;
   width: 100vw;
+  z-index: 1000;
 `;

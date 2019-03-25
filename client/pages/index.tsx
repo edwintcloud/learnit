@@ -25,6 +25,7 @@ export default class extends React.Component<Props> {
     this.setPosterLoader();
     await this.context.getResource("categories", "/api/v1/categories");
     this.context.updateState("topicsAnimate", true);
+    this.context.getUser();
   }
 
   render() {

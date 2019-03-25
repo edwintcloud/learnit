@@ -16,4 +16,5 @@ func (api *API) RegisterRoutes() {
 	api.RegisterCategories()
 	api.RegisterTopics()
 	api.RegisterResources()
+	api.RegisterUsers()
 }

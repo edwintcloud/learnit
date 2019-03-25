@@ -8,6 +8,47 @@ interface Props {
   router?: any;
 }
 
+const GridBox = styled(Grid)`
+      margin-top: 80px;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+      background-color: #fff;
+      grid-template: "a b";
+      & > div:last-child {
+        width: 55vw;
+      }
+      & > div {
+        padding: 30px;
+      }
+      @media (max-width: 960px) {
+        min-height: calc(100vh - 180px);
+        grid-template: "a" min-content "b";
+        & > div:last-child {
+          width: unset;
+          max-width: 100vw;
+          padding: 20px;
+        }
+        & > div {
+          max-width: 100vw;
+          padding: 20px;
+        }
+      }
+    `;
+
+    const ArrowIcon = styled.svg`
+      width: 36px;
+      display: block;
+      height: 36px;
+      :hover {
+        cursor: pointer;
+      }
+    `;
+
+    const CardGridBox = styled(Grid)`
+      padding: 15px 0 15px 15px;
+      border-bottom: 1px solid #e4e6e8;
+    `;
+
 export default class extends React.Component<Props> {
   static contextType = Context;
 
@@ -38,40 +79,6 @@ export default class extends React.Component<Props> {
   }
 
   render() {
-    const GridBox = styled(Grid)`
-      margin-top: 80px;
-      height: calc(100vh - 80px);
-      overflow-y: auto;
-      background-color: #fff;
-      grid-template: "a b";
-      & > div {
-        max-width: 55vw;
-        padding: 30px;
-      }
-      @media (max-width: 960px) {
-        min-height: calc(100vh - 180px);
-        grid-template: "a" min-content "b";
-        & > div {
-          max-width: 100vw;
-          padding: 20px;
-        }
-      }
-    `;
-
-    const ArrowIcon = styled.svg`
-      width: 36px;
-      display: block;
-      height: 36px;
-      :hover {
-        cursor: pointer;
-      }
-    `;
-
-    const CardGridBox = styled(Grid)`
-      padding: 15px 0 15px 15px;
-      border-bottom: 1px solid #e4e6e8;
-      height: 180px;
-    `;
 
     if (
       !this.state.topic.name ||
@@ -132,19 +139,24 @@ export default class extends React.Component<Props> {
             </Text>
           </Grid>
 
-          <Grid templateRows="repeat(auto-fill, 180px)">
+          <Grid templateRows="repeat(auto-fill, 1fr)">
             {this.context.resources &&
               this.context.resources.map((resource: any, i: number) => (
                 <CardGridBox templateColumns="min-content 1fr" gap="15px">
                   <Grid
-                    templateRows="1fr 1fr 1fr"
-                    style={{ alignItems: "center" }}
+                    templateRows="1fr"
+                    alignItems="start"
                   >
-                    <ArrowIcon viewBox="0 0 22 22">
+                  <Grid
+                    templateRows="1fr 1fr 1fr"
+                    marginTop={10}
+                  >
+                    <ArrowIcon viewBox="0 0 22 22" >
                       <path
                         d="M2 20h18L11 5z"
                         fill="#bbc0c4"
                         transform="translate(0, 1)"
+                        onClick={() => document.getElementById("votes").innerHTML = Number(document.getElementById("votes").innerHTML)+1}
                       />
                     </ArrowIcon>
                     <Text
@@ -155,6 +167,7 @@ export default class extends React.Component<Props> {
                       weight="600"
                       align="center"
                       justify="center"
+                      id="votes"
                     >
                       {Number(resource.up_votes) - Number(resource.down_votes)}
                     </Text>
@@ -163,14 +176,15 @@ export default class extends React.Component<Props> {
                         d="M2 5h18L11 20z"
                         fill="#bbc0c4"
                         transform="translate(0, -5)"
+                        onClick={() => document.getElementById("votes").innerHTML = Number(document.getElementById("votes").innerHTML)-1}
                       />
                     </ArrowIcon>
+                    </Grid>
                   </Grid>
                   <Grid
                     template={`"a" "b" "c" min-content`}
                     gap="10px"
                     padding={"10px 0 10px 10px"}
-                    height={160}
                   >
                     <Grid.Item
                       area="a"
@@ -195,7 +209,7 @@ export default class extends React.Component<Props> {
                         textOverflow: "ellipsis"
                       }}
                     >
-                      By: {resource.author}
+                      By: {resource.user.first_name} {resource.user.last_name[0]}.
                     </Grid.Item>
                   </Grid>
                 </CardGridBox>

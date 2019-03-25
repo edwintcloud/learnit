@@ -4,7 +4,7 @@
 // AKA Offline Mode!
 const withOffline = require("next-offline");
 const withTypescript = require('@zeit/next-typescript');
-const prod = process.env.NODE_ENV === 'production';
+const envConfig = require("./env-config");
 
 const nextConfig = {
   target: "serverless",
@@ -28,11 +28,7 @@ const nextConfig = {
       }
     ]
   },
-  env: {
-    BACKEND_URL: prod ? 'https://learnit-prod.herokuapp.com' : 'http://localhost:8000',
-    // we can use now secrets for api keys and sensitive info we don't want to expose client side
-    // variables here are compiled into app at build time
-  }
+  env: envConfig
 };
 
 module.exports = withTypescript(withOffline(nextConfig));

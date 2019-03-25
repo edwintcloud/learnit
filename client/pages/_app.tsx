@@ -3,7 +3,7 @@ import Head from "next/head";
 import { createGlobalStyle } from "styled-components";
 import { title } from "./_document";
 import Provider from "../components/Context";
-import { Navbar, Navlink, ImageLoader, Poster, Logo } from "../components";
+import { Navbar, Navlink, ImageLoader, Poster, Logo, Consumer, Text } from "../components";
 import Link from "next/link";
 
 // Any global CSS variables and selectors we want
@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     overflow-x: hidden; 
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: rgba(73,73,73,1);
   }
   .loaded {
     opacity: 1!important;
@@ -50,10 +51,14 @@ export default class MyApp extends App {
     newImg.src = img.src;
   }
 
+  logoutUser = () => {
+    localStorage.removeItem("user");
+    window.location.reload(); 
+  };
+
   async componentDidMount() {
     this.setPosterLoader();
   }
-
 
   render() {
     const { Component, pageProps, router } = this.props;
@@ -64,17 +69,45 @@ export default class MyApp extends App {
           <title>{title}</title>
         </Head>
         <Provider>
-          <Navbar cols="repeat(2, 1fr)">
-            <Link prefetch href="/">
-              <Navlink align="left" size="2em" padding="0 30px" cols="40px 1fr">
-                <Logo src="static/img/logo1.png" alt="logo" />
-                Learnit
-              </Navlink>
-            </Link>
-            <Navlink align="right" size="1em" padding="0 30px">
-              {/* Login */}
-            </Navlink>
-          </Navbar>
+          <Consumer>
+            {(context: any) => (
+              <Navbar cols="1fr min-content min-content">
+              <Link prefetch href="/">
+                <Navlink align="left" size="2em" padding="0 30px" cols="40px 1fr">
+                  <Logo src="static/img/logo1.png" alt="logo" />
+                  Learnit
+                </Navlink>
+              </Link>
+              {!context.user && (
+                <>
+                  <Link prefetch href="/signup">
+                    <Navlink align="right" size="1.1em" padding="0 30px">
+                      Signup
+                    </Navlink>
+                  </Link>
+                  <Link prefetch href="/login">
+                    <Navlink align="right" size="1.1em" padding="0 30px">
+                      Login
+                    </Navlink>
+                  </Link>
+                </>
+              ) ||
+              <> 
+              <Text
+                as="p"
+                size="1.1em"
+                color="rgba(255,255,255,0.9)"
+                style={{alignSelf: 'center', whiteSpace: 'nowrap'}}
+                margin="0 20px"
+              >Hello {context.user.first_name}!</Text>
+                <Navlink align="right" size="1.1em" padding="0 30px" onClick={this.logoutUser}>
+                      Logout
+                </Navlink>
+              </>}
+            </Navbar>
+            )}
+          
+          </Consumer>
           <ImageLoader style={{ backgroundColor: "#000" }}>
             <Poster id="poster" src="static/img/poster1.jpg" alt="poster" />
           </ImageLoader>

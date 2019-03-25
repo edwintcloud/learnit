@@ -22,4 +22,8 @@ export default styled.a<Props>`
   :hover {
       background-color: hsla(0, 0%, 2%, 0.6);
   }
+
+  @media (max-width: 768px) {
+    padding: 0 15px;
+  }
 `;
