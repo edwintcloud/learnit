@@ -20,8 +20,6 @@ interface Props {
 }
 
 const GridBox = styled(Grid)`
-  height: calc(100vh - 80px);
-  overflow-y: auto;
   background-color: #fff;
   grid-template: "a b";
   & > div:last-child {
@@ -31,6 +29,7 @@ const GridBox = styled(Grid)`
     min-height: calc(100vh - 180px);
     grid-template: "a" min-content "b";
     & > div:last-child {
+      padding-top: 30px;
       width: unset;
       max-width: 100vw;
     }
@@ -161,7 +160,7 @@ export default class extends React.Component<Props> {
 
     return (
       <Provider theme={defaultTheme}>
-        <Grid backgroundColor="white" marginTop={80} padding={20} gap={15}>
+        <Grid backgroundColor="white" marginTop={80} padding={20} gap={15} height="calc(100vh - 80px)" overflowY="auto" templateRows="min-content min-content">
           <Breadcrumb>
             <li>{this.context.categories && this.context.categories.map((category: any, i: any) => category.id == this.props.router.query.category_id && <a href="" onClick={(e)=> {e.preventDefault();this.props.router.back()}}>{category.name}</a>)}</li>
             <div></div>
