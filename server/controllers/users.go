@@ -29,12 +29,33 @@ func (api *API) RegisterUsers() {
 // CreateUser creates a new User in the db
 func (api *API) CreateUser(c echo.Context) error {
 	user := models.User{}
+	foundUser := models.User{}
 	err := c.Bind(&user)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, models.Response{
 			Message: err.Error(),
 			Status:  http.StatusBadRequest,
 		})
+	}
+	// make sure user doesn't exist
+	err = api.DB.Where(&models.User{Email: user.Email}).First(&foundUser).Error
+	if err == nil {
+		err = bcrypt.CompareHashAndPassword([]byte(foundUser.Password), []byte(user.Password))
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.Response{
+				Message: err.Error(),
+				Status:  http.StatusBadRequest,
+			})
+		}
+		err = generateJwt(&foundUser)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.Response{
+				Message: err.Error(),
+				Status:  http.StatusBadRequest,
+			})
+		}
+		foundUser.Password = ""
+		return c.JSON(http.StatusOK, foundUser)
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
 	if err != nil {

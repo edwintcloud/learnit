@@ -24,6 +24,12 @@ export default class extends React.Component<Props> {
   }
 
   async getTopics(category_id: string) {
+    this.props.router.replace({
+      pathname: "/topics",
+      query: {
+        category_id: category_id
+      }
+    });
     await this.context.getResource(
       "topics",
       `/api/v1/topics/by_category/${category_id}`
