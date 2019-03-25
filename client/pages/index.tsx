@@ -40,6 +40,7 @@ export default class extends React.Component<Props> {
             this.context.categories.map((category: any, index: any) => (
               <Link
                 prefetch
+                key={index}
                 href={{
                   pathname: "/topics",
                   query: {
@@ -47,7 +48,7 @@ export default class extends React.Component<Props> {
                   }
                 }}
               >
-                <Chip key={index} as="a">
+                <Chip as="a">
                   {category.name}
                 </Chip>
               </Link>

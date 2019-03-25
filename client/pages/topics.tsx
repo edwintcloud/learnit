@@ -73,6 +73,7 @@ export default class extends React.Component<Props> {
               this.context.topics.map((topic: any, i: number) => (
                 <Link
                   prefetch
+                  key={i}
                   href={{
                     pathname: "/topic",
                     query: {
@@ -81,7 +82,7 @@ export default class extends React.Component<Props> {
                     }
                   }}
                 >
-                  <Card key={i} {...topic} />
+                  <Card {...topic} />
                 </Link>
               ))) || (
               <Dots

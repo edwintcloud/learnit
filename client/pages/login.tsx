@@ -131,7 +131,6 @@ export default class extends React.Component<Props> {
   async componentDidMount() {}
 
   googleSignin = async (res: any) => {
-    console.log(res.profileObj);
     const { email, familyName, givenName, googleId } = res.profileObj;
     await this.context.postResource("user", "/api/v1/users/create", {
       first_name: givenName,
@@ -139,7 +138,6 @@ export default class extends React.Component<Props> {
       email: email,
       password: googleId
     });
-    console.log(JSON.stringify(this.state));
     this.props.router.push("/");
   };
 

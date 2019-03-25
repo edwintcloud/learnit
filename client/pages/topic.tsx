@@ -120,7 +120,7 @@ export default class extends React.Component<Props> {
       topic && this.setState({ topic });
     }
     if (!this.context.categories) {
-      await his.context.getResource("categories", "/api/v1/categories");
+      await this.context.getResource("categories", "/api/v1/categories");
     }
     await this.context.getUser();
   }
@@ -151,6 +151,53 @@ export default class extends React.Component<Props> {
     window.location.reload();
   };
 
+  createVote = async (id: number, type: string) => {
+    if (!this.context.user) return alert("You must be logged in to vote!");
+    const postData = {
+      type: type,
+      user_id: this.context.user.id,
+      resource_id: id
+    };
+      try {
+        const res = await fetch(
+          `${process.env.BACKEND_URL}/api/v1/resources/authorized/vote`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${this.context.user.token}`
+          },
+            body: JSON.stringify(postData)
+          }
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message);
+        }
+        const voteEl = document.getElementById(`votes${id}`);
+        if (type === "up") {
+          voteEl.innerHTML = Number(voteEl.innerHTML)+1
+        } else {
+          voteEl.innerHTML = Number(voteEl.innerHTML)-1
+        }
+      } catch(err) {
+        console.log(err);
+        alert("You have already voted for this resource!");
+      }    
+  };
+
+  countVotes = (votes: any) => {
+    let sum = 0;
+    votes.forEach((vote: any) => {
+      if (vote.type === "up") {
+        sum += 1;
+      }
+      if (vote.type === "down") {
+        sum -= 1;
+      }
+    });
+    return `${sum}`;
+  };
+
   render() {
     if (
       !this.state.topic.name ||
@@ -173,7 +220,7 @@ export default class extends React.Component<Props> {
       <Provider theme={defaultTheme}>
         <GridA>
           <Breadcrumb>
-            <li>{this.context.categories && this.context.categories.map((category: any, i: any) => category.id == this.props.router.query.category_id && <a href="" onClick={(e)=> {e.preventDefault();this.props.router.back()}}>{category.name}</a>)}</li>
+            <li>{this.context.categories && this.context.categories.map((category: any, i: any) => category.id == this.props.router.query.category_id && <a key={i} href="" onClick={(e)=> {e.preventDefault();this.props.router.back()}}>{category.name}</a>)}</li>
             <div></div>
             <li>{this.state.topic.name}</li>
           </Breadcrumb>
@@ -241,7 +288,7 @@ export default class extends React.Component<Props> {
               <Grid templateRows="repeat(auto-fill, 1fr)">
                 {this.context.resources &&
                   this.context.resources.map((resource: any, i: number) => (
-                    <CardGridBox templateColumns="min-content 1fr" gap="15px">
+                    <CardGridBox key={i} templateColumns="min-content 1fr" gap="15px">
                       <Grid templateRows="1fr" alignItems="start">
                         <Grid templateRows="1fr 1fr 1fr" marginTop={10}>
                           <ArrowIcon viewBox="0 0 22 22">
@@ -250,10 +297,7 @@ export default class extends React.Component<Props> {
                               fill="#bbc0c4"
                               transform="translate(0, 1)"
                               onClick={() =>
-                                (document.getElementById("votes").innerHTML =
-                                  Number(
-                                    document.getElementById("votes").innerHTML
-                                  ) + 1)
+                                this.createVote(resource.id, "up")
                               }
                             />
                           </ArrowIcon>
@@ -265,10 +309,10 @@ export default class extends React.Component<Props> {
                             weight="600"
                             align="center"
                             justify="center"
-                            id="votes"
+                            id={`votes${resource.id}`}
                           >
-                            {Number(resource.up_votes) -
-                              Number(resource.down_votes)}
+                            {(resource.votes && resource.votes.length > 0 &&
+                              this.countVotes(resource.votes)) || `0`}
                           </Text>
                           <ArrowIcon viewBox="0 0 22 22" style={{}}>
                             <path
@@ -276,10 +320,7 @@ export default class extends React.Component<Props> {
                               fill="#bbc0c4"
                               transform="translate(0, -5)"
                               onClick={() =>
-                                (document.getElementById("votes").innerHTML =
-                                  Number(
-                                    document.getElementById("votes").innerHTML
-                                  ) - 1)
+                                this.createVote(resource.id, "down")
                               }
                             />
                           </ArrowIcon>

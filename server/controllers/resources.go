@@ -23,7 +23,7 @@ func (api *API) RegisterResources() {
 	protectedRoutes.Use(middleware.JWT([]byte(os.Getenv("JWT_SECRET"))))
 	{
 		protectedRoutes.POST("/create", api.CreateResource)
-		// protectedRoutes.POST("/vote", api.CreateVote)
+		protectedRoutes.POST("/vote", api.CreateVote)
 	}
 
 	// api routes
@@ -51,7 +51,7 @@ func (api *API) GetResourcesByTopic(c echo.Context) error {
 			Status:  http.StatusBadRequest,
 		})
 	}
-	api.DB.Where(&models.Resource{TopicID: id}).Preload("User").Find(&resources)
+	api.DB.Where(&models.Resource{TopicID: id}).Preload("User").Preload("Votes").Find(&resources)
 	for i := range resources {
 		resources[i].User.Password = ""
 	}
@@ -80,4 +80,36 @@ func (api *API) CreateResource(c echo.Context) error {
 	}
 	api.DB.Create(&resource)
 	return c.JSON(http.StatusOK, resource)
+}
+
+// CreateVote creates a new vote in the db
+func (api *API) CreateVote(c echo.Context) error {
+	votes := []models.Vote{}
+	// get user id from jwt
+	userJWT := c.Get("user").(*jwt.Token)
+	claims := userJWT.Claims.(jwt.MapClaims)
+	id, err := strconv.Atoi(claims["id"].(string))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Message: err.Error(),
+			Status:  http.StatusBadRequest,
+		})
+	}
+	vote := models.Vote{UserID: id}
+	err = c.Bind(&vote)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Message: err.Error(),
+			Status:  http.StatusBadRequest,
+		})
+	}
+	api.DB.Where(&models.Vote{UserID: vote.UserID, ResourceID: vote.ResourceID}).Find(&votes)
+	if len(votes) > 0 {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Message: "User has already voted for this resource",
+			Status:  http.StatusBadRequest,
+		})
+	}
+	api.DB.Create(&vote)
+	return c.JSON(http.StatusOK, vote)
 }

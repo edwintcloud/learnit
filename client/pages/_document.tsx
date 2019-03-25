@@ -134,10 +134,20 @@ export default class MyDocument extends Document<Props> {
           {/* Fonts */}
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"></link>
 
-          {/* Google Domain Verification */}
-          <meta name="google-site-verification" content="qIePiJMjXFPNTSspBrrfIGKxzy89aXVoRBx0aAnquoo" />
+          {/* Apple PWA fix */}
+          <script dangerouslySetInnerHTML={{ __html: `
+            if (!!navigator.platform && /iP(?:hone|ad|od)/.test(navigator.platform)) {
+              document.querySelector("link[rel='manifest']").setAttribute("rel", "no-ios");
+              document.title = "Learnit"; // default app name | simulate short_name
+              if ("standalone" in window.navigator && window.navigator.standalone && sessionStorage.getItem("iOS-redirect") === null) {
+                sessionStorage.setItem("iOS-redirect", "");
+                window.location = "/"; // simulate start_url
+              }
+            }
+          `}} />
+          
         </Head>
-        <body>
+        <body onTouchStart="return true;">
           <Main />
           <NextScript />
         </body>

@@ -12,6 +12,5 @@ type Resource struct {
 	User        User      `json:"user"`
 	Description string    `json:"description"`
 	Link        string    `json:"link"`
-	UpVotes     int       `json:"up_votes"`
-	DownVotes   int       `json:"down_votes"`
+	Votes       []Vote    `json:"votes"`
 }
