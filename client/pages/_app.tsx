@@ -71,7 +71,7 @@ export default class MyApp extends App {
         <Provider>
           <Consumer>
             {(context: any) => (
-              <Navbar cols="1fr min-content">
+              <Navbar cols="1fr min-content min-content">
               <Link prefetch href="/">
                 <Navlink align="left" size="2em" padding="0 30px" cols="40px 1fr">
                   <Logo src="static/img/logo1.png" alt="logo" />
@@ -93,6 +93,13 @@ export default class MyApp extends App {
                 </>
               ) ||
               <> 
+              <Text
+                as="p"
+                size="1.1em"
+                color="rgba(255,255,255,0.9)"
+                style={{alignSelf: 'center', whiteSpace: 'nowrap'}}
+                margin="0 20px"
+              ></Text>
                 <Navlink align="right" size="1.1em" padding="0 30px" onClick={this.logoutUser}>
                       Logout
                 </Navlink>

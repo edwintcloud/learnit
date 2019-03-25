@@ -80,6 +80,16 @@ const Breadcrumb = styled(List)`
   }
 `;
 
+const GridA = styled(Grid)`
+  background-color: white;
+  margin-top: 80px;
+  padding: 20px;
+  grid-gap: 15px; 
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  grid-template-rows: min-content min-content;
+`;
+
 export default class extends React.Component<Props> {
   static contextType = Context;
 
@@ -160,7 +170,7 @@ export default class extends React.Component<Props> {
 
     return (
       <Provider theme={defaultTheme}>
-        <Grid backgroundColor="white" marginTop={80} padding={20} gap={15} height="calc(100vh - 80px)" overflowY="auto" templateRows="min-content min-content">
+        <GridA>
           <Breadcrumb>
             <li>{this.context.categories && this.context.categories.map((category: any, i: any) => category.id == this.props.router.query.category_id && <a href="" onClick={(e)=> {e.preventDefault();this.props.router.back()}}>{category.name}</a>)}</li>
             <div></div>
@@ -317,7 +327,7 @@ export default class extends React.Component<Props> {
               </Grid>
             </Grid.Item>
           </GridBox>
-        </Grid>
+        </GridA>
       </Provider>
     );
   }
