@@ -22,6 +22,7 @@ interface Props {
 const GridBox = styled(Grid)`
   background-color: #fff;
   grid-template: "a b";
+  overflow: hidden;
   & > div:last-child {
     width: 55vw;
   }
@@ -87,6 +88,7 @@ const GridA = styled(Grid)`
   grid-gap: 15px; 
   height: calc(100vh - 80px);
   overflow-y: auto;
+  z-index: 1;
   grid-template-rows: min-content min-content;
 `;
 
@@ -101,7 +103,6 @@ export default class extends React.Component<Props> {
   };
 
   async componentDidMount() {
-    await this.context.getUser();
     await this.context.getResource(
       "resources",
       `/api/v1/resources/by_topic/${this.props.router.query.id}`
@@ -119,9 +120,9 @@ export default class extends React.Component<Props> {
       topic && this.setState({ topic });
     }
     if (!this.context.categories) {
-      await this.context.getResource("categories", "/api/v1/categories");
+      await his.context.getResource("categories", "/api/v1/categories");
     }
-    console.log(this.context)
+    await this.context.getUser();
   }
 
   createResource = async (postData: any) => {
@@ -157,14 +158,14 @@ export default class extends React.Component<Props> {
       !this.context.resources
     ) {
       return (
-        <GridBox
+        <GridA
           templateColumns="1fr"
           templateRows="1fr"
           justifyItems="center"
           alignItems="center"
         >
           <Dots size="40px" color="rgba(73,73,73,1)" />
-        </GridBox>
+        </GridA>
       );
     }
 
