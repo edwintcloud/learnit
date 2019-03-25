@@ -125,7 +125,10 @@ export default class extends React.Component<Props> {
     await this.context.getUser();
   }
 
-  createResource = async (postData: any) => {
+  createResource = async (postData: any, overlay: any) => {
+    if (!postData.description || !postData.link || postData.description.length < 3 || postData.link.length < 3) {
+      return overlay.hide();
+    }
     try {
       const res = await fetch(
         `${process.env.BACKEND_URL}/api/v1/resources/authorized/create`,
@@ -145,10 +148,11 @@ export default class extends React.Component<Props> {
       if (!res.ok) {
         throw new Error(data.message);
       }
+      this.context.addResource(data);
     } catch (err) {
       console.log(err);
     }
-    window.location.reload();
+    overlay.hide();
   };
 
   createVote = async (id: number, type: string) => {
@@ -276,7 +280,7 @@ export default class extends React.Component<Props> {
                       <Backdrop use={[Portal, Overlay.Hide]} {...overlay} />
                       <Overlay use={Portal} {...overlay}>
                         {(this.context.user && (
-                          <AddResource onClick={this.createResource} />
+                          <AddResource overlay={overlay} onClick={this.createResource} />
                         )) ||
                           `You must be logged in!`}
                       </Overlay>

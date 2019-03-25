@@ -51,6 +51,14 @@ export default class extends React.Component<Props> {
     this.setState({[e.target.name]:e.target.value});
   }
 
+  onClick = async () => {
+    await this.props.onClick(this.state, this.props.overlay);
+    this.setState({
+      description: "",
+      link: ""
+    });
+  }
+
   render() {
     return (
       <Grid backgroundColor="white" gap={15}>
@@ -92,7 +100,7 @@ export default class extends React.Component<Props> {
             <ValidationMessage>There was an error!</ValidationMessage>
           )}
         </Field>
-        <Button backgroundColor="rgb(51, 51, 102)" onClick={() => this.props.onClick(this.state)}>
+        <Button backgroundColor="rgb(51, 51, 102)" onClick={this.onClick}>
           Add
         </Button>
       </Grid>

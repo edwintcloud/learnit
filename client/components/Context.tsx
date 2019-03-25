@@ -69,6 +69,19 @@ export default class Provider extends React.Component {
           this.setState({user: JSON.parse(data)});
           console.log("User was loaded from local storage.");
         }  
+    },
+    addResource: (resource: any) => {
+      this.setState({
+        resources: [
+          ...this.state.resources,
+          {
+            ...resource,
+            user: {
+              ...this.state.user
+            }
+          }
+        ]
+      });
     }
 
   };
