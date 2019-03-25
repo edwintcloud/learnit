@@ -12,6 +12,7 @@ export default class extends React.Component<Props> {
   static contextType = Context;
 
   async componentDidMount() {
+    await this.context.getUser();
     await this.getTopics(this.props.router.query.category_id);
     if (!this.context.categories) {
       await this.context.getResource("categories", "/api/v1/categories");

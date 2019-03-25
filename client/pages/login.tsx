@@ -140,7 +140,7 @@ export default class extends React.Component<Props> {
       password: googleId
     });
     console.log(JSON.stringify(this.state));
-    this.props.router.back();
+    this.props.router.push("/");
   };
 
   onChange = (e: any) => {

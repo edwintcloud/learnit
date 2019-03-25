@@ -136,7 +136,9 @@ export default class extends React.Component<Props> {
     confirm_passwordError: false
   };
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    console.log(this.props)
+  }
 
   googleSignin = async (res: any) => {
     console.log(res.profileObj);
@@ -148,7 +150,7 @@ export default class extends React.Component<Props> {
       password: googleId
     });
     console.log(JSON.stringify(this.state));
-    this.props.router.back();
+    this.props.router.push("/");
   };
 
   onChange = (e: any) => {

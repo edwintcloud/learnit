@@ -133,6 +133,9 @@ export default class MyDocument extends Document<Props> {
 
           {/* Fonts */}
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"></link>
+
+          {/* Google Domain Verification */}
+          <meta name="google-site-verification" content="qIePiJMjXFPNTSspBrrfIGKxzy89aXVoRBx0aAnquoo" />
         </Head>
         <body>
           <Main />
