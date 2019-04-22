@@ -1,32 +1,45 @@
 version: "3.7"
 
 services:
-# MySQL Database
+  # MySQL Database
   learnit-db:
     image: mariadb:latest
-    command: ['mysqld', '--character-set-server=utf8', '--collation-server=utf8_unicode_ci']
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8",
+        "--collation-server=utf8_unicode_ci",
+      ]
     volumes:
       - learnit-data:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "secretpassword"
-      MYSQL_DATABASE: "learnit"
-# API Server
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  # API Server
   learnit-server:
     build: ./server
-    ports: 
-      - "8000:8000" 
+    ports:
+      - "8000:8000"
     environment:
-      - PORT=8000
-      - JWT_SECRET=secret
-      - DB_HOST=learnit-db
-      - DB_PORT=3306
-      - DB_NAME=learnit
-      - DB_USER=root
-      - DB_PASSWORD=secretpassword
+      - PORT=${PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
-      - learnit-db  
+      - learnit-db
+  # Client
+  learnit-client:
+    image: node:10.15-alpine
+    command: /bin/sh -c 'cd client && npm i && npm run dev;'
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/client
 
 # Volumes Configuration
 volumes:
